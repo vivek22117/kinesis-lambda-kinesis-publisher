@@ -20,18 +20,15 @@ public class Publisher {
 
     private KinesisProducerClient kinesisProducerClient;
     private SQSClient sqsClient;
-    private SubscriberUtility subscriberUtility;
 
     public Publisher() {
         this.kinesisProducerClient = new KinesisProducerClient();
         this.sqsClient = new SQSClient();
-        this.subscriberUtility = new SubscriberUtility();
     }
 
     public void sendDataToSubscribers(Stream<String> rsvpRecords, List<Subscriber> rsvpSubscribers, boolean shouldFingerPrintAndLog) {
-        List<Subscriber> subscribers = subscriberUtility.getSubscribers(rsvpSubscribers);
         rsvpRecords.forEach(record -> {
-            sendData(record, subscribers, shouldFingerPrintAndLog);
+            sendData(record, rsvpSubscribers, shouldFingerPrintAndLog);
         });
     }
 
