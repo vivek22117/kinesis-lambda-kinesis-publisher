@@ -12,8 +12,8 @@ resource "aws_s3_bucket_object" "kinesis_rsvp_publisher_package" {
 
 data "archive_file" "kinesis_rsvp_publisher_lambda_jar" {
   type        = "zip"
-  source_file = "${path.module}/../../KinesisPublisher/target/kinesis-rsvp-publisher-1.0.0-lambda.zip"
-  output_path = "kinesis-rsvp-publisher-lambda-jar/rsvp_lambda_processor.zip"
+  source_file = "${path.module}/../../KinesisPublisher/target/kinesis-rsvp-publisher-1.0.0.jar"
+  output_path = "kinesis-rsvp-publisher-lambda-jar/rsvp_lambda_publisher.zip"
 }
 
 
