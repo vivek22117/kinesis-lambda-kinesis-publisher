@@ -42,9 +42,10 @@ resource "aws_iam_policy" "kinesis_lambda_policy" {
         "dynamodb:DescribeTable",
         "dynamodb:Query",
         "dynamodb:Scan",
-        "dynamodb:PutItem"
+        "dynamodb:PutItem",
+        "dynamodb:GetItem"
       ],
-      "Resource": "TO_BE_DEFINED"
+      "Resource": "${data.terraform_remote_state.rsvp_lambda_kinesis.outputs.dynamodb_arn}"
     },
     {
       "Effect": "Allow",
@@ -57,7 +58,7 @@ resource "aws_iam_policy" "kinesis_lambda_policy" {
                 "kinesis:ListStreams",
                 "kinesis:SubscribeToShard"
       ],
-      "Resource": "TO_BE_DEFINED"
+      "Resource": "${data.terraform_remote_state.rsvp_lambda_kinesis.outputs.kinesis_arn}"
     }
   ]
 }

@@ -14,7 +14,6 @@ import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 
 public class Publisher {
-
     private static Logger logger = LogManager.getLogger(Publisher.class);
     private static String componentName = "RSVP-Publisher";
 

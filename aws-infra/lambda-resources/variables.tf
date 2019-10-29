@@ -47,16 +47,6 @@ variable "billing_mode" {
   description = "DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST"
 }
 
-variable "enable_streams" {
-  type = bool
-  description = "Enable DynamoDB streams"
-}
-
-variable "stream_view_type" {
-  type        = string
-  description = "When an item in the table is modified, what information is written to the stream KEYS_ONLY, NEW_IMAGE, OLD_IMAGE, NEW_AND_OLD_IMAGES."
-}
-
 variable "db_read_capacity" {
   type = number
   description = "DynamoDB read capacity"
@@ -77,6 +67,30 @@ variable "enable_point_in_time_recovery" {
   description = "Enable DynamoDB point in time recovery"
 }
 
+variable "kinesis_lambda_kinesis_bucket_key" {
+  type = string
+  description = "S3 key to upload deployable zip file"
+}
+
+variable "kinesis_publisher_lambda" {
+  type = string
+  description = "AWS Lambda function name"
+}
+
+variable "kinesis_publisher_lambda_handler" {
+  type = string
+  description = "AWS Lambda handler name"
+}
+
+variable "lambda_memory" {
+  type = number
+  description = "AWS Lambda function memory limit"
+}
+
+variable "lambda_timeout" {
+  type = number
+  description = "AWS Lambda function timeout"
+}
 
 ####################################
 # Local variables                  #

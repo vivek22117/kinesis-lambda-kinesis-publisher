@@ -25,7 +25,7 @@ public class RSVPRecordPublisher {
         this(new DynamoDBClient(), new Publisher());
     }
 
-    public RSVPRecordPublisher(DynamoDBClient dynamoDBClient, Publisher publisher) {
+    private RSVPRecordPublisher(DynamoDBClient dynamoDBClient, Publisher publisher) {
         this.dynamoDBClient = dynamoDBClient;
         this.publisher = publisher;
     }
@@ -44,7 +44,9 @@ public class RSVPRecordPublisher {
             publisher.sendDataToSubscribers(rsvpRecords, subscribers, true);
         } catch (Exception ex) {
             LOGGER.error("Processing failed for kinesis event discarding bad data....", ex);
+            event.getRecords().stream().map(x -> UserRecord.deaggregate(Collections.singletonList(x.getKinesis())))
+                    .flatMap(List::stream)
+                    .forEach(record -> LOGGER.error("Error Data: ", record.getData().array()));
         }
     }
-
 }

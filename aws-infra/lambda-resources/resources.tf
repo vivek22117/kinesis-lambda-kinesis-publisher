@@ -3,8 +3,6 @@ resource "aws_dynamodb_table" "subscriber_table" {
 
   hash_key = var.hash_key
   billing_mode = var.billing_mode
-  stream_enabled = var.enable_streams
-  stream_view_type = var.stream_view_type
 
   read_capacity = var.db_read_capacity
   write_capacity = var.db_write_capacity
