@@ -4,10 +4,7 @@ package com.ddsolutions.publisher.client;
 import com.ddsolutions.publisher.utility.PropertyLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.*;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
@@ -69,9 +66,9 @@ public class KinesisProducerClient {
     private AwsCredentialsProvider getAwsCredentials() {
         if (awsCredentialsProvider == null) {
             if (isRunningInLambda) {
-                awsCredentialsProvider = InstanceProfileCredentialsProvider.builder().build();
+                awsCredentialsProvider = EnvironmentVariableCredentialsProvider.create();
             } else if (isRunningInLocal) {
-                awsCredentialsProvider = ProfileCredentialsProvider.builder().profileName("doubledigit").build();
+                awsCredentialsProvider = ProfileCredentialsProvider.builder().profileName("admin").build();
             } else {
                 awsCredentialsProvider = DefaultCredentialsProvider.builder().build();
             }

@@ -58,7 +58,6 @@ public class DynamoDBClient {
                 });
                 return subscriberList;
             }
-            return new ArrayList<>();
         } catch (Exception e) {
             LOGGER.error("Error Occurred while getting Subscriptions from DynamoDB:", e);
         }
