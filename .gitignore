@@ -24,11 +24,19 @@ hs_err_pid*
 
 
 
+
 # Intellij
 .idea/libraries/*.xml
 *.iml
 *.iws
 .idea/*
+
+.idea
+
+target/
+
+
+/target/**
 
 #  Local .terraform directories
 **/.terraform/*
