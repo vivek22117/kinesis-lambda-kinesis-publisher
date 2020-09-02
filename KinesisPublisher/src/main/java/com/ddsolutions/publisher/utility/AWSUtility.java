@@ -19,10 +19,10 @@ public class AWSUtility {
     private static AWSCredentialsProvider awsCredentials;
 
     private static boolean isRunningInLambda =
-            Boolean.getBoolean(PropertyLoader.getPropValues("isRunningInLambda"));
+            Boolean.getBoolean(PropertyLoader.getInstance().getPropValues("isRunningInLambda"));
 
     private static boolean isRunningInLocal =
-            Boolean.getBoolean(PropertyLoader.getPropValues("isRunningInLocal"));
+            Boolean.getBoolean(PropertyLoader.getInstance().getPropValues("isRunningInLocal"));
 
     public static AmazonSQSAsync getSQSClient() {
         try {
