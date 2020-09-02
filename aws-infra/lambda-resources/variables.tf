@@ -25,7 +25,7 @@ variable "environment" {
 variable "s3_bucket_prefix" {
     type = string
   description = "S3 deployment bucket prefix"
-  default = "teamconcept-tfstate"
+  default = "doubledigit-tfstate"
 }
 
 
@@ -98,7 +98,7 @@ variable "lambda_timeout" {
 locals {
   common_tags = {
     owner       = "Vivek"
-    team        = "TeamConcept"
+    team        = "DoubleDigitTeam"
     environment = var.environment
   }
 }

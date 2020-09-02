@@ -1,3 +1,6 @@
+####################################################
+#          AWS DynamoDB for Subscriber             #
+####################################################
 resource "aws_dynamodb_table" "subscriber_table" {
   name = var.db_table_name
 

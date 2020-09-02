@@ -20,7 +20,7 @@ data "archive_file" "kinesis_rsvp_publisher_lambda_jar" {
 resource "aws_lambda_function" "kinesis_rsvp_lambda_publisher" {
   depends_on = ["aws_iam_role.k_lambda_k_role", "aws_iam_policy.kinesis_lambda_policy"]
 
-  description = "Lambda function to process RSVP event"
+  description = "Lambda function to publish RSVP records!"
 
   function_name = var.kinesis_publisher_lambda
   handler       = var.kinesis_publisher_lambda_handler
