@@ -1,18 +1,46 @@
 package com.ddsolutions.publisher.utility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyLoader {
-    String result = "";
+    private static final Logger LOGGER = LogManager.getLogger(PropertyLoader.class);
+    private static PropertyLoader propertyLoader = null;
 
-    public static String getPropValues(String propertyKey){
+    private static final String ENV = "environment";
+    private static final String SUFFIX = ".properties";
+    private static final String PREFIX = "/application";
+
+    private PropertyLoader() {
+    }
+
+    public static PropertyLoader getInstance() {
+        if (propertyLoader == null) {
+            synchronized (PropertyLoader.class) {
+                if (propertyLoader == null) {
+                    propertyLoader = new PropertyLoader();
+                }
+            }
+        }
+        return propertyLoader;
+    }
+
+    public String getPropValues(String propertyKey) {
+        String propFileName = null;
 
         try {
+            String env = System.getenv(ENV);
+            if (env != null) {
+                propFileName = "-" + env;
+                propFileName = PREFIX + propFileName + SUFFIX;
+            }
             Properties prop = new Properties();
-            String propFileName = "application.properties";
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            LOGGER.debug("Property file name is.." + propFileName);
             InputStream inputStream = loader.getResourceAsStream(propFileName);
 
             if (inputStream != null) {
@@ -20,7 +48,7 @@ public class PropertyLoader {
             } else {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
-            // get the property value and print it out
+            LOGGER.debug("property value is " + prop.getProperty(propertyKey));
             return prop.getProperty(propertyKey);
         } catch (Exception e) {
             return null;

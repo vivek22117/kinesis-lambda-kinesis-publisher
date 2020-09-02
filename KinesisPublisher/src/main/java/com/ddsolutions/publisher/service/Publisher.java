@@ -31,8 +31,8 @@ public class Publisher {
         });
     }
 
-    private void sendData(String rsvpRecord, List<Subscriber> v2Subscribers, boolean shouldFingerPrintAndLog) {
-        publishRecords(shouldFingerPrintAndLog, v2Subscribers, rsvpRecord);
+    private void sendData(String rsvpRecord, List<Subscriber> subscribers, boolean shouldFingerPrintAndLog) {
+        publishRecords(shouldFingerPrintAndLog, subscribers, rsvpRecord);
     }
 
     private void publishRecords(boolean shouldFingerPrintAndLog, List<Subscriber> subscribers, String rsvpRecord) {
@@ -43,8 +43,8 @@ public class Publisher {
         subscribers.forEach(subscriber -> {
             try {
                 writeToDestination(subscriber.getResourceName(), subscriber.getResourceType(), rsvpRecord);
-            } catch (Exception e) {
-                logger.error(rsvpRecord, e, componentName, singletonList(format("Unable to write to %s. ", subscriber.getResourceName())));
+            } catch (Exception ex) {
+                logger.error(rsvpRecord, ex, componentName, singletonList(format("Unable to write to %s. ", subscriber.getResourceName())));
             }
         });
     }
