@@ -54,6 +54,7 @@ public class DynamoDBClient {
                     entry.setSubscriberARN(MakeSafe(item.get("SubscriberARN").getS()));
                     entry.setResourceType(MakeSafe(item.get("ResourceType").getS()));
                     entry.setResourceName(MakeSafe(item.get("ResourceName").getS()));
+                    entry.setResourceName(MakeSafe(item.get("DataType").getS()));
 
                     subscriberList.add(entry);
                 });

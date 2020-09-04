@@ -31,10 +31,8 @@ public class RSVPRecordPublisher {
     }
 
     public void processEvent(KinesisEvent event) {
+        LOGGER.info("Processing started for kinesis event......");
         try {
-            List<String> rsvpSubscriberList = Collections.singletonList("rsvp");
-            List<Subscriber> subscribers = dynamoDBClient.getSubscribers(rsvpSubscriberList);
-
             List<KinesisEvent.KinesisEventRecord> records = event.getRecords();
             Stream<String> rsvpRecords = records.stream()
                     .map(x -> UserRecord.deaggregate(Collections.singletonList(x.getKinesis())))
@@ -42,6 +40,9 @@ public class RSVPRecordPublisher {
                     .map(record -> record.getData().array())
                     .map(GzipUtility::decompressData).filter(Objects::nonNull)
                     .map(GzipUtility::deserializeData).filter(Objects::nonNull);
+
+            List<String> rsvpSubscriberList = Collections.singletonList("rsvp");
+            List<Subscriber> subscribers = dynamoDBClient.getSubscribers(rsvpSubscriberList);
 
             publisher.sendDataToSubscribers(rsvpRecords, subscribers, true);
         } catch (Exception ex) {
