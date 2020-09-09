@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class SQSClient {
 
-    private AmazonSQSAsync amazonSQSAsync;
+    private final AmazonSQSAsync amazonSQSAsync;
 
     public SQSClient() {
         this.amazonSQSAsync = AWSUtility.getSQSClient();

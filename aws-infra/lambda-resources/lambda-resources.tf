@@ -10,13 +10,6 @@ resource "aws_s3_bucket_object" "kinesis_rsvp_publisher_package" {
   etag   = filemd5("${path.module}/../../KinesisPublisher/target/kinesis-rsvp-publisher-1.0.0-lambda.zip")
 }
 
-data "archive_file" "kinesis_rsvp_publisher_lambda_jar" {
-  type        = "zip"
-  source_file = "${path.module}/../../KinesisPublisher/target/kinesis-rsvp-publisher-1.0.0.jar"
-  output_path = "kinesis-rsvp-publisher-lambda-jar/rsvp_lambda_publisher.zip"
-}
-
-
 resource "aws_lambda_function" "kinesis_rsvp_lambda_publisher" {
   depends_on = ["aws_iam_role.k_lambda_k_role", "aws_iam_policy.kinesis_lambda_policy"]
 
@@ -28,7 +21,6 @@ resource "aws_lambda_function" "kinesis_rsvp_lambda_publisher" {
   s3_bucket = aws_s3_bucket_object.kinesis_rsvp_publisher_package.bucket
   s3_key    = aws_s3_bucket_object.kinesis_rsvp_publisher_package.key
 
-  source_code_hash = data.archive_file.kinesis_rsvp_publisher_lambda_jar.output_base64sha256
   role             = aws_iam_role.k_lambda_k_role.arn
 
   memory_size = var.lambda_memory

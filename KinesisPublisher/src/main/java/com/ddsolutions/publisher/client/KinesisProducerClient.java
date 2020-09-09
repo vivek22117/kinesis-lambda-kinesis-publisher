@@ -19,11 +19,12 @@ public class KinesisProducerClient {
 
     private static final int RETRY_COUNT = 3;
     private static AwsCredentialsProvider awsCredentialsProvider;
-    private static boolean isRunningInLambda =
+    private static final boolean isRunningInLambda =
             Boolean.getBoolean(PropertyLoader.getInstance().getPropValues("isRunningInLambda"));
-    private static boolean isRunningInLocal =
+    private static final boolean isRunningInLocal =
             Boolean.getBoolean(PropertyLoader.getInstance().getPropValues("isRunningInLocal"));
-    private KinesisClient kinesisClient;
+
+    private final KinesisClient kinesisClient;
 
     public KinesisProducerClient() {
         this.kinesisClient = KinesisClient.builder()

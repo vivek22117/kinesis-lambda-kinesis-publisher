@@ -14,11 +14,11 @@ import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 
 public class Publisher {
-    private static Logger logger = LogManager.getLogger(Publisher.class);
-    private static String componentName = "RSVP-Publisher";
+    private static final Logger LOGGER = LogManager.getLogger(Publisher.class);
+    private static final String componentName = "RSVP-Publisher";
 
-    private KinesisProducerClient kinesisProducerClient;
-    private SQSClient sqsClient;
+    private final KinesisProducerClient kinesisProducerClient;
+    private final SQSClient sqsClient;
 
     public Publisher() {
         this.kinesisProducerClient = new KinesisProducerClient();
@@ -37,14 +37,14 @@ public class Publisher {
 
     private void publishRecords(boolean shouldFingerPrintAndLog, List<Subscriber> subscribers, String rsvpRecord) {
         if (shouldFingerPrintAndLog) {
-            logger.info(rsvpRecord, componentName, subscribers.stream().map(Subscriber::getSubscriberARN).collect(Collectors.toList()));
+            LOGGER.info(rsvpRecord, componentName, subscribers.stream().map(Subscriber::getSubscriberARN).collect(Collectors.toList()));
         }
 
         subscribers.forEach(subscriber -> {
             try {
                 writeToDestination(subscriber.getResourceName(), subscriber.getResourceType(), rsvpRecord);
             } catch (Exception ex) {
-                logger.error(rsvpRecord, ex, componentName, singletonList(format("Unable to write to %s. ", subscriber.getResourceName())));
+                LOGGER.error(rsvpRecord, ex, componentName, singletonList(format("Unable to write to %s. ", subscriber.getResourceName())));
             }
         });
     }
@@ -55,7 +55,7 @@ public class Publisher {
         else if (awsServiceType.equals("sqs"))
             sqsClient.pushMessage(subscriberName, rsvpRecord);
         else {
-            logger.error(rsvpRecord, componentName, singletonList("Unknown Subscriber Aws Service type or need implementation to put record."));
+            LOGGER.error(rsvpRecord, componentName, singletonList("Unknown Subscriber Aws Service type or need implementation to put record."));
         }
     }
 }
