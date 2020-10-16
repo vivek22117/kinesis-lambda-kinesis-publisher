@@ -59,7 +59,17 @@ resource "aws_iam_policy" "kinesis_lambda_policy" {
                 "kinesis:SubscribeToShard"
       ],
       "Resource": "${data.terraform_remote_state.rsvp_lambda_kinesis.outputs.kinesis_arn}"
-    }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "sqs:*",
+      "Resource": "*"
+   },
+    {
+      "Effect": "Allow",
+      "Action": "sns:*",
+      "Resource": "*"
+   }
   ]
 }
 EOF
