@@ -39,7 +39,7 @@ variable "db_table_name" {
 
 variable "hash_key" {
   type        = string
-  description = "DynmoDB table hash key"
+  description = "DynamoDB table hash key"
 }
 
 variable "billing_mode" {
