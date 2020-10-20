@@ -2,7 +2,6 @@
 #adding the lambda archive to the defined bucket   #
 ####################################################
 resource "aws_s3_bucket_object" "kinesis_rsvp_publisher_package" {
-  depends_on = ["data.archive_file.kinesis_rsvp_publisher_lambda_jar"]
 
   bucket = data.terraform_remote_state.backend.outputs.deploy_bucket_name
   key    = var.kinesis_lambda_kinesis_bucket_key
@@ -31,7 +30,7 @@ resource "aws_lambda_function" "kinesis_rsvp_lambda_publisher" {
     variables = {
       isRunningInLambda = "true",
       environment       = var.environment
-      db_table   =
+      db_table   =      data.terraform_remote_state.rsvp_subscriber_api.outputs.dynamo_db_name
     }
   }
 
