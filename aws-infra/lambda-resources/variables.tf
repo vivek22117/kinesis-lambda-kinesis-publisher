@@ -28,45 +28,9 @@ variable "s3_bucket_prefix" {
   default     = "doubledigit-tfstate"
 }
 
-
 #################################
 # Application Variables         #
 #################################
-variable "db_table_name" {
-  type        = string
-  description = "Name of the table for subscribers"
-}
-
-variable "hash_key" {
-  type        = string
-  description = "DynamoDB table hash key"
-}
-
-variable "billing_mode" {
-  type        = string
-  description = "DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST"
-}
-
-variable "db_read_capacity" {
-  type        = number
-  description = "DynamoDB read capacity"
-}
-
-variable "db_write_capacity" {
-  type        = number
-  description = "DynamoDB write capacity"
-}
-
-variable "enable_encryption" {
-  type        = bool
-  description = "Enable DynamoDB server-side encryption"
-}
-
-variable "enable_point_in_time_recovery" {
-  type        = bool
-  description = "Enable DynamoDB point in time recovery"
-}
-
 variable "kinesis_lambda_kinesis_bucket_key" {
   type        = string
   description = "S3 key to upload deployable zip file"
