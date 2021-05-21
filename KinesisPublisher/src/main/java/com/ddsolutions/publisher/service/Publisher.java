@@ -25,7 +25,8 @@ public class Publisher {
         this.sqsClient = new SQSClient();
     }
 
-    public void sendDataToSubscribers(Stream<String> rsvpRecords, List<Subscriber> rsvpSubscribers, boolean shouldFingerPrintAndLog) {
+    public void sendDataToSubscribers(Stream<String> rsvpRecords, List<Subscriber> rsvpSubscribers,
+                                      boolean shouldFingerPrintAndLog) {
         rsvpRecords.forEach(record -> {
             sendData(record, rsvpSubscribers, shouldFingerPrintAndLog);
         });
@@ -37,7 +38,9 @@ public class Publisher {
 
     private void publishRecords(boolean shouldFingerPrintAndLog, List<Subscriber> subscribers, String rsvpRecord) {
         if (shouldFingerPrintAndLog) {
-            LOGGER.info(rsvpRecord, componentName, subscribers.stream().map(Subscriber::getSubscriberARN).collect(Collectors.toList()));
+            LOGGER.info(rsvpRecord, componentName, subscribers.stream()
+                    .map(Subscriber::getSubscriberARN)
+                    .collect(Collectors.toList()));
         }
 
         subscribers.forEach(subscriber -> {
