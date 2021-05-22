@@ -40,7 +40,7 @@ public class DynamoDBClient {
         List<Subscriber> subscriberList = new ArrayList<>();
         try {
             ScanRequest request = new ScanRequest();
-            request.setTableName(PropertyLoader.getInstance().getPropValues("subscriber.table.name"));
+            request.setTableName(System.getenv("db_table"));
 
             ScanResult scan = dynamoDBClient.scan(request);
             if (scan == null || scan.getItems() == null)
