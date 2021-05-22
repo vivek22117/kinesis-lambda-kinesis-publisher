@@ -1,5 +1,5 @@
 resource "aws_iam_role" "k_lambda_k_role" {
-  depends_on = ["aws_iam_policy.kinesis_lambda_policy"]
+  depends_on = [aws_iam_policy.kinesis_lambda_policy]
 
   name               = "KinesisLambdaPublisherRole"
   assume_role_policy = <<EOF

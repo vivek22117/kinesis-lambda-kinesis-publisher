@@ -62,7 +62,7 @@ variable "lambda_timeout" {
 locals {
   common_tags = {
     owner       = "Vivek"
-    team        = "DoubleDigitTeam"
+    team        = "DD-Team"
     environment = var.environment
   }
 }

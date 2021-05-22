@@ -4,8 +4,6 @@
 provider "aws" {
   region  = var.default_region
   profile = var.profile
-
-  version = ">=2.28.0"
 }
 
 
@@ -32,7 +30,7 @@ terraform {
       version = "~> 2.1"
     }
     archive = {
-      source = "hashicorp/archive"
+      source  = "hashicorp/archive"
       version = "2.2.0"
     }
     random = {
