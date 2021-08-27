@@ -3,7 +3,7 @@
 ####################################################
 resource "aws_s3_bucket_object" "kinesis_rsvp_publisher_package" {
 
-  bucket = data.terraform_remote_state.backend.outputs.deploy_bucket_name
+  bucket = data.terraform_remote_state.s3_buckets.outputs.artifactory_s3_name
   key    = var.kinesis_lambda_kinesis_bucket_key
   source = "${path.module}/../../KinesisPublisher/target/kinesis-rsvp-publisher-1.0.0-lambda.zip"
   etag   = filemd5("${path.module}/../../KinesisPublisher/target/kinesis-rsvp-publisher-1.0.0-lambda.zip")
