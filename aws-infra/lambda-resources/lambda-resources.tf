@@ -5,8 +5,8 @@ resource "aws_s3_bucket_object" "kinesis_rsvp_publisher_package" {
 
   bucket = data.terraform_remote_state.s3_buckets.outputs.artifactory_s3_name
   key    = var.kinesis_lambda_kinesis_bucket_key
-  source = "${path.module}/../../KinesisPublisher/target/kinesis-rsvp-publisher-1.0.0-lambda.zip"
-  etag   = filemd5("${path.module}/../../KinesisPublisher/target/kinesis-rsvp-publisher-1.0.0-lambda.zip")
+  source = "${path.module}/../../KinesisPublisher/target/rsvp-publisher-lambda.zip"
+  etag   = filemd5("${path.module}/../../KinesisPublisher/target/rsvp-publisher-lambda.zip")
 }
 
 resource "aws_lambda_function" "kinesis_rsvp_lambda_publisher" {
@@ -19,6 +19,8 @@ resource "aws_lambda_function" "kinesis_rsvp_lambda_publisher" {
 
   s3_bucket = aws_s3_bucket_object.kinesis_rsvp_publisher_package.bucket
   s3_key    = aws_s3_bucket_object.kinesis_rsvp_publisher_package.key
+
+  source_code_hash = filebase64sha256("${path.module}/../../KinesisPublisher/target/rsvp-publisher-lambda.zip")
 
   role = aws_iam_role.k_lambda_k_role.arn
 
