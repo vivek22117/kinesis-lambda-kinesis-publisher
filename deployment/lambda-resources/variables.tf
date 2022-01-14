@@ -1,11 +1,6 @@
 #############################
 # Global Variables          #
 #############################
-variable "profile" {
-  type        = string
-  description = "AWS profile name for credentials"
-}
-
 variable "default_region" {
   type        = string
   description = "AWS region name to deploy resources"
@@ -16,17 +11,6 @@ variable "environment" {
   description = "Environment to deploy"
 }
 
-
-
-
-#################################
-#  Default Variables            #
-#################################
-variable "s3_bucket_prefix" {
-  type        = string
-  description = "S3 deployment bucket prefix"
-  default     = "doubledigit-tfstate"
-}
 
 #################################
 # Application Variables         #
