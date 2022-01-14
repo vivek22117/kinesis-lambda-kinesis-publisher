@@ -2,14 +2,15 @@
 # AWS provider configuration                       #
 ####################################################
 provider "aws" {
-  region  = var.default_region
+  region = var.default_region
+  #  profile = "default"
 }
 
 
-###########################################################
-# Terraform configuration block is used to define backend #
-# Interpolation syntax is not allowed in Backend          #
-###########################################################
+
+#############################################################
+# Terraform configuration block is used to define providers #
+#############################################################
 terraform {
   required_providers {
     aws = {
@@ -39,8 +40,8 @@ terraform {
   }
   required_version = ">= 0.13"
 
-
   backend "s3" {
+    #    profile = "default"
     region  = "us-east-1"
     encrypt = "true"
   }
