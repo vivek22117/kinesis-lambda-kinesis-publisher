@@ -32,7 +32,7 @@ resource "aws_lambda_function" "kinesis_rsvp_lambda_publisher" {
     variables = {
       isRunningInLambda = "true",
       environment       = var.environment
-      db_table   =      data.terraform_remote_state.rsvp_subscriber_api.outputs.dynamo_db_name
+      db_table          = data.terraform_remote_state.rsvp_subscriber_api.outputs.dynamo_db_name
     }
   }
 
