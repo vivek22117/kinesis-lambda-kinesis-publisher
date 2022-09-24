@@ -17,7 +17,7 @@ on:
 
 env:
   tf_version: '0.13.5'
-  tf_working_dir_app: './aws-infra/lambda-resources/'
+  tf_working_dir_app: './deployment/lambda-resources/'
   maven_dir: './KinesisPublisher/'
   aws_region: 'us-east-1'
   environment: ${{ github.event.inputs.env }}
