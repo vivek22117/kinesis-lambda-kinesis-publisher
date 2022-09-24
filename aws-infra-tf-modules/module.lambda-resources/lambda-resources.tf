@@ -1,7 +1,7 @@
 ####################################################
 #adding the lambda archive to the defined bucket   #
 ####################################################
-resource "aws_s3_bucket_object" "kinesis_rsvp_publisher_package" {
+resource "aws_s3_object" "kinesis_rsvp_publisher_package" {
 
   bucket = data.terraform_remote_state.s3_buckets.outputs.artifactory_s3_name
   key    = var.kinesis_lambda_kinesis_bucket_key
@@ -17,8 +17,8 @@ resource "aws_lambda_function" "kinesis_rsvp_lambda_publisher" {
   function_name = var.kinesis_publisher_lambda
   handler       = var.kinesis_publisher_lambda_handler
 
-  s3_bucket = aws_s3_bucket_object.kinesis_rsvp_publisher_package.bucket
-  s3_key    = aws_s3_bucket_object.kinesis_rsvp_publisher_package.key
+  s3_bucket = aws_s3_object.kinesis_rsvp_publisher_package.bucket
+  s3_key    = aws_s3_object.kinesis_rsvp_publisher_package.key
 
   source_code_hash = filebase64sha256("${path.module}/../../KinesisPublisher/target/rsvp-publisher-lambda.zip")
 
